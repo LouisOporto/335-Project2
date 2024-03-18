@@ -28,7 +28,7 @@ Combine all student schedules and create a list of possible intervals. Ensuring 
         max = max > availableTime[element][1] ? availableTime[element][0] : max
         for interval in schedule[element] do
             list.append(interval)
-    
+
     list.sort(key=lambda x: (First:HH, Second:MM)) (sort by HH first and then MM second)
 
     for element in list[::-1] do (iterate from back to front)
@@ -63,10 +63,10 @@ Combine all student schedules and create a list of possible intervals. Ensuring 
                 pass
             else do
                 list_avail.remove(element)
-    
+
     return list_avail
-            
-        
+
+
 ###  Complexity and Efficiency Class
 Proof by Step Count:
     T(n) = 4 + 3n + 2n^2 + n*logn + 6n + 2 + 4n + 9n + 1
@@ -109,18 +109,48 @@ Proof by Step Count:
 
 ### How It Works
 To run this algorithm typpe `py algorithm1.py`
-Will ask user to input how many students are in the group. Asking for each memebers schedules and available times. Lastly will ask for the minimum duration of the meeting in minutes. 
+Will ask user to input how many students are in the group. Asking for each memebers schedules and available times. Lastly will ask for the minimum duration of the meeting in minutes.
 
 Given this input the algorithm will combine all the members schedules together and create a list that consist of intervals that are not in the scedules and are between the minimum and maximum available time periods. It will then remove any intervals that go over the duration limit and return the list of possible meeting time intervals.
 
 ## Alogrithm 2
+### Pseudocode
+Combine all student schedules and create a list of possible intervals. Ensuring that it fits the limit of the meeting in minutes and between the available time of students.
+
+    # Sub Function
+    function sum(list of numbers): (external function to find sum of given list)
+        let sum = 0
+
+        for num in numbers do
+            sum += num
+
+        return sum
+
+    # Main Function
+    function longestSum(list of numbers):
+    if length of numbers == 1 do return numbers[0]
+
+    let n = length of numbers
+    maxSum = -sys.maxsize (Lower Bound)
+    let left = 0
+    let right = 1
+
+    for i in range(n - 1) do
+        for j in range(i + 1, n) do
+            if sum(numbers[i:j]) > maxSum do
+                maxSum = sum(numbers[i:j])
+                left = i
+                right = j
+
+    return left, right
+
 ###  Complexity and Efficiency Class
     Proof by Step Count:
     T(n) = 6 + n + n^2 + 8n^2 + 4n^3 + 1
         = 7 + n + 9n^2 + 4n^3
         = O(n^3) Cubic Growth
         Therefore, T(n) exists in O(n^3)
-        
+
     Proof by Induction
     1. Prediction
     T(n) looks similar to quaratic efficiency O(n^3)
